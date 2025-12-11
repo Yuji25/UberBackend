@@ -1,0 +1,69 @@
+# Spring Application Configuration Template
+# Copy this file and rename it to 'application.properties'
+# Then replace all placeholder values with your actual configuration
+
+# ===================================
+# Application Name
+# ===================================
+spring.application.name=UberBackend
+
+# ===================================
+# Server Configuration
+# ===================================
+server.port=8081
+
+# ===================================
+# MongoDB Configuration
+# ===================================
+# Replace with your MongoDB Atlas URI or local MongoDB connection string
+# Format: mongodb+srv://<username>:<password>@<cluster-url>/<database-name>
+spring.data.mongodb.uri=mongodb+srv://<your_username>:<your_password>@<your_cluster>.mongodb.net/<your_database_name>
+
+# Alternative: For local MongoDB installation
+# spring.data.mongodb.uri=mongodb://localhost:27017/<your_database_name>
+
+# Database name (optional if included in URI)
+# spring.data.mongodb.database=uberdb
+
+# ===================================
+# MongoDB Additional Settings
+# ===================================
+# Enable auto-index creation for MongoDB
+spring.data.mongodb.auto-index-creation=true
+
+# ===================================
+# JWT Configuration
+# ===================================
+# Secret key for JWT token signing (CHANGE THIS TO YOUR OWN SECRET!)
+# Generate a strong secret key: https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx
+jwt.secret=<your_jwt_secret_key_here_minimum_32_characters>
+
+# JWT token expiration time in milliseconds (default: 24 hours = 86400000 ms)
+jwt.expiration=86400000
+
+# ===================================
+# Logging Configuration (Optional)
+# ===================================
+# Uncomment to enable debug logging for development
+# logging.level.org.springframework.security=DEBUG
+# logging.level.org.springframework.data.mongodb=DEBUG
+
+# ===================================
+# INSTRUCTIONS FOR SETUP:
+# ===================================
+# 1. Create a MongoDB Atlas account at: https://www.mongodb.com/cloud/atlas
+# 2. Create a new cluster (free tier available)
+# 3. Create a database user with username and password
+# 4. Whitelist your IP address (or use 0.0.0.0/0 for development)
+# 5. Get your connection string from Atlas and replace the placeholders above
+# 6. Generate a strong JWT secret key (minimum 32 characters)
+# 7. Save this file as 'application.properties' in src/main/resources/
+# 8. Make sure this file is listed in .gitignore to keep your credentials safe!
+#
+# Example MongoDB URI:
+# spring.data.mongodb.uri=mongodb+srv://myuser:mypassword123@cluster0.abc123.mongodb.net/uberdb
+#
+# Example JWT Secret (DO NOT USE THIS - GENERATE YOUR OWN):
+# jwt.secret=mySecretKeyForJWTTokenGenerationAndValidation12345678
+# ===================================
+
