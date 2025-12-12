@@ -49,6 +49,60 @@ jwt.expiration=86400000
 # logging.level.org.springframework.data.mongodb=DEBUG
 
 # ===================================
+# Swagger/OpenAPI Configuration
+# ===================================
+
+# OpenAPI JSON endpoint path
+springdoc.api-docs.path=/api-docs
+
+# Swagger UI endpoint path
+springdoc.swagger-ui.path=/swagger-ui.html
+
+# Enable Swagger UI
+springdoc.swagger-ui.enabled=true
+
+# Sort operations by HTTP method (GET, POST, PUT, DELETE)
+springdoc.swagger-ui.operations-sorter=method
+
+# Sort tags alphabetically
+springdoc.swagger-ui.tags-sorter=alpha
+
+# Display all operations expanded by default
+springdoc.swagger-ui.doc-expansion=none
+
+# Show request duration in UI
+springdoc.swagger-ui.display-request-duration=true
+
+# ===================================
+# API Group Configurations
+# ===================================
+
+# Group 1: Authentication APIs
+springdoc.group-configs[0].group=auth
+springdoc.group-configs[0].display-name=Authentication APIs
+springdoc.group-configs[0].paths-to-match=/api/auth/**
+
+# Group 2: Core Ride APIs
+springdoc.group-configs[1].group=core-rides
+springdoc.group-configs[1].display-name=Core Ride APIs
+springdoc.group-configs[1].paths-to-match=/api/rides/**
+
+# Group 3: Advanced Query APIs
+springdoc.group-configs[2].group=queries
+springdoc.group-configs[2].display-name=Advanced Query APIs
+springdoc.group-configs[2].paths-to-match=/api/rides/search,/api/rides/filter-distance,/api/rides/filter-date-range,/api/rides/sort,/api/rides/user/**,/api/rides/driver/**,/api/rides/filter-status,/api/rides/advanced-search,/api/rides/date/**
+
+# Group 4: Analytics APIs
+springdoc.group-configs[3].group=analytics
+springdoc.group-configs[3].display-name=Analytics APIs
+springdoc.group-configs[3].paths-to-match=/api/analytics/**
+
+# Group 5: Health Check APIs
+springdoc.group-configs[4].group=health
+springdoc.group-configs[4].display-name=Health Check APIs
+springdoc.group-configs[4].paths-to-match=/api/health/**
+
+# ===================================
 # INSTRUCTIONS FOR SETUP:
 # ===================================
 # 1. Create a MongoDB Atlas account at: https://www.mongodb.com/cloud/atlas

@@ -1,5 +1,7 @@
 package org.example.uberbackend.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/health")
+@Tag(name = "Health Check APIs", description = "Application and database health check endpoints")
 public class HealthController {
 
     @Autowired
@@ -21,6 +24,10 @@ public class HealthController {
 
     // Health check 1: Check if backend is running
     @GetMapping("/ping")
+    @Operation(
+        summary = "Ping health check",
+        description = "Simple endpoint to verify the application is running"
+    )
     public ResponseEntity<Map<String, String>> ping() {
         Map<String, String> response = new HashMap<>();
         response.put("status", "SUCCESS");
@@ -31,6 +38,10 @@ public class HealthController {
 
     // Health check 2: Check MongoDB connection
     @GetMapping("/db")
+    @Operation(
+        summary = "Database connectivity check",
+        description = "Verifies MongoDB connection is healthy and accessible"
+    )
     public ResponseEntity<Map<String, String>> checkDatabase() {
         Map<String, String> response = new HashMap<>();
         try {

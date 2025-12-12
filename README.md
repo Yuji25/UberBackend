@@ -11,6 +11,7 @@ A production-grade Spring Boot backend application for a ride-sharing system (li
 - ✅ **Transaction Support** - @Transactional operations for data consistency
 - ✅ **Advanced Queries** - Complex MongoDB queries with filtering, sorting, and pagination
 - ✅ **Analytics Dashboard** - MongoDB aggregation pipelines for business insights
+- ✅ **Interactive API Documentation** - Swagger/OpenAPI with UI for testing endpoints
 
 ### Security
 - ✅ JWT token-based authentication (stateless)
@@ -36,6 +37,7 @@ A production-grade Spring Boot backend application for a ride-sharing system (li
 - **Security**: Spring Security + JWT
 - **Build Tool**: Maven
 - **ORM**: Spring Data MongoDB
+- **API Documentation**: Swagger/OpenAPI 3.0 (springdoc-openapi)
 
 ---
 
@@ -148,7 +150,206 @@ Expected response: `{"status":"success","message":"Database connection is health
 
 ---
 
-## 📚 API Documentation
+## 📖 Interactive API Documentation (Swagger UI)
+
+### 🎉 Explore & Test APIs with Swagger!
+
+This project includes **interactive API documentation** powered by Swagger/OpenAPI 3.0. You can view all endpoints, see request/response examples, and **test APIs directly from your browser**!
+
+### 🚀 Access Swagger UI
+
+Once the application is running, open your browser and navigate to:
+
+```
+http://localhost:8081/swagger-ui.html
+```
+
+### ✨ What You'll See
+
+**Swagger UI Features:**
+- 📋 **Complete API List** - All 23 REST endpoints in one place
+- 📂 **Organized Groups** - APIs grouped by functionality (Authentication, Rides, Analytics, etc.)
+- 🧪 **Try It Out** - Test any endpoint directly from the browser
+- 🔒 **JWT Authorization** - Built-in authorization with "Authorize" button
+- 📝 **Request/Response Examples** - See exactly what to send and expect
+- 📊 **Response Codes** - All possible responses (200, 403, 500, etc.) with examples
+- 🎯 **Parameter Descriptions** - Detailed info for every parameter
+
+### 🎯 How to Use Swagger UI
+
+#### Step 1: Register a User
+1. Open Swagger UI: `http://localhost:8081/swagger-ui.html`
+2. Find **"Authentication APIs"** section
+3. Click on `POST /api/auth/register`
+4. Click **"Try it out"** button
+5. Enter request body:
+   ```json
+   {
+     "username": "testuser",
+     "password": "password123",
+     "role": "ROLE_USER"
+   }
+   ```
+6. Click **"Execute"**
+7. See the response with auto-generated ID!
+
+#### Step 2: Login & Get JWT Token
+1. Click on `POST /api/auth/login`
+2. Click **"Try it out"**
+3. Enter credentials:
+   ```json
+   {
+     "username": "testuser",
+     "password": "password123"
+   }
+   ```
+4. Click **"Execute"**
+5. **Copy the JWT token** from the response (the long string starting with `eyJ...`)
+
+#### Step 3: Authorize for Protected Endpoints
+1. Click the **"Authorize" 🔓** button at the top right of Swagger UI
+2. In the popup, enter: `Bearer <paste-your-token-here>`
+   - Example: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciI...`
+   - **Important:** Include the word "Bearer" followed by a space, then your token
+3. Click **"Authorize"**
+4. Click **"Close"**
+5. The lock icon 🔓 should now be closed 🔒 (you're authorized!)
+
+#### Step 4: Test Protected Endpoints
+1. Find **"Core Ride APIs"** section
+2. Click on `POST /api/rides`
+3. Click **"Try it out"**
+4. Enter ride details:
+   ```json
+   {
+     "pickupLocation": "Downtown Station",
+     "dropLocation": "Airport Terminal 2",
+     "fare": 25.50,
+     "distanceKm": 15.3
+   }
+   ```
+5. Click **"Execute"**
+6. ✅ Success! You just created a ride using Swagger!
+
+### 📂 API Groups Available
+
+The APIs are organized into **5 logical groups** for easy navigation:
+
+| Group | Description | Endpoints |
+|-------|-------------|-----------|
+| 🔐 **Authentication APIs** | User registration and login | 2 endpoints |
+| 🚗 **Core Ride APIs** | Create, accept, complete rides + queries | 14 endpoints |
+| 🔍 **Advanced Query APIs** | Complex searches with filters & pagination | Same as above (organized view) |
+| 📊 **Analytics APIs** | Business analytics & aggregations | 5 endpoints |
+| 💚 **Health Check APIs** | Application & database health | 2 endpoints |
+
+**Total: 23 REST Endpoints** - All documented and testable!
+
+### 🔑 Key Features of Our Swagger Implementation
+
+#### 1. **Smart Request Body Handling**
+- ✅ Auto-generated fields (like `id`, `status`, `timestamps`) are **hidden** from request bodies
+- ✅ Only required fields are shown when creating resources
+- ✅ Clear examples for every field
+
+#### 2. **Accurate Response Examples**
+- ✅ **Success responses (200)** show the actual object (User, Ride, etc.)
+- ✅ **Error responses (403, 500)** show proper error structure with:
+  - `timestamp` - When the error occurred
+  - `status` - HTTP status code
+  - `error` - Error type
+  - `message` - Detailed error message
+
+#### 3. **JWT Security Integration**
+- ✅ **"Authorize" button** in UI for easy token management
+- ✅ Enter token once, test all protected endpoints
+- ✅ Clear indication of which endpoints require authentication
+- ✅ Proper 403 responses for unauthorized access
+
+#### 4. **Detailed Descriptions**
+Every endpoint includes:
+- 📝 Summary - Quick overview
+- 📖 Description - Detailed explanation
+- 🎯 Parameters - What each parameter does
+- 📊 Response Codes - All possible outcomes
+- 💡 Examples - Sample requests and responses
+
+### 🌐 Alternative Swagger URLs
+
+- **Main Swagger UI:** `http://localhost:8081/swagger-ui.html`
+- **OpenAPI JSON (All APIs):** `http://localhost:8081/api-docs`
+- **OpenAPI JSON (By Group):**
+  - Authentication: `http://localhost:8081/api-docs/auth`
+  - Core Rides: `http://localhost:8081/api-docs/core-rides`
+  - Queries: `http://localhost:8081/api-docs/queries`
+  - Analytics: `http://localhost:8081/api-docs/analytics`
+  - Health: `http://localhost:8081/api-docs/health`
+
+### 💡 Pro Tips
+
+1. **Use the "Authorize" button** - Don't manually add Bearer token to each request
+2. **Check response schemas** - Click "Schema" tab to see field types and requirements
+3. **Copy curl commands** - Each request has a curl equivalent you can use in terminal
+4. **Test error cases** - Try invalid data to see error responses
+5. **Export API specification** - Download OpenAPI JSON for API client generation
+
+### 🎨 Swagger UI Screenshot Features
+
+When you open Swagger UI, you'll see:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  UberBackend API Documentation                v1.0.0    │
+│  Complete REST API for ride-sharing system             │
+│                                         [Authorize 🔓]  │
+├─────────────────────────────────────────────────────────┤
+│  Select a definition: [default ▼]                      │
+│  ┌─ Authentication APIs ──────────────────────────┐    │
+│  │  POST /api/auth/register  Register new user    │    │
+│  │  POST /api/auth/login     Login user          │    │
+│  └────────────────────────────────────────────────┘    │
+│  ┌─ Core Ride APIs ───────────────────────────────┐    │
+│  │  POST /api/rides          Create new ride      │    │
+│  │  POST /api/rides/accept   Accept ride          │    │
+│  │  POST /api/rides/complete Complete ride        │    │
+│  │  GET  /api/rides          Get all rides        │    │
+│  │  ... and 10 more query endpoints               │    │
+│  └────────────────────────────────────────────────┘    │
+│  ┌─ Analytics APIs ───────────────────────────────┐    │
+│  │  GET  /api/analytics/driver/{id}/earnings      │    │
+│  │  GET  /api/analytics/rides-per-day             │    │
+│  │  ... and 3 more analytics endpoints            │    │
+│  └────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 🎓 Why Swagger/OpenAPI?
+
+**For Developers:**
+- 🚀 Faster development - No need for separate API testing tools
+- 📝 Always up-to-date - Documentation generated from code
+- 🧪 Easy testing - Test APIs without writing scripts
+- 🤝 Better collaboration - Share interactive docs with team
+
+**For Learning:**
+- 📚 Understand API design patterns
+- 🔍 See how REST APIs work in practice
+- 🎯 Learn about HTTP methods, status codes, and headers
+- 💡 Explore complex queries and aggregations
+
+**For Production:**
+- 📖 Professional documentation for clients
+- 🔄 API specification export (OpenAPI JSON)
+- 🛠️ Client code generation support
+- 📊 API analytics and monitoring ready
+
+---
+
+## 📚 Manual API Documentation
+
+If you prefer traditional documentation or need curl examples, here are the detailed API references:
+
+---
 
 ### Authentication Endpoints
 
@@ -459,6 +660,7 @@ src/
 - Global exception handling
 - Role-based access control
 - MVC architecture
+- **Interactive API documentation with Swagger/OpenAPI 3.0**
 
 ---
 
@@ -476,8 +678,19 @@ Built as part of an in-class Spring Boot project to demonstrate:
 - NoSQL database integration
 - Modern authentication patterns
 - Advanced query operations
+- Interactive API documentation with Swagger/OpenAPI
+
+---
+
+## 🔗 Quick Links
+
+- **Swagger UI:** http://localhost:8081/swagger-ui.html
+- **OpenAPI Spec:** http://localhost:8081/api-docs
+- **Health Check:** http://localhost:8081/api/health/ping
 
 ---
 
 **Happy Coding! 🚀**
+
+**💡 Tip:** Start with Swagger UI to explore and test all 23 APIs interactively!
 
